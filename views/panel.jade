@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    h1  
+        table
+            tr
+                th(align="left" width="99%")=title
+                th(align="right")
+                    label MENU&nbsp;
+                        a(href='#')
+                            i(class="fa fa-bars" aria-hidden="true")
+    p
+        a(href="/panel/employees/new") Nuevo
+        table
+            tr
+                th Id
+                th Nombre
+                th Apellido
+                th E-Mail
+                th Options
+                - employees.forEach(function(v,i){
+                tr
+                    td=i
+                    td=v.nombre
+                    td=v.apellido
+                    td=v.email
+                    td
+                        a(href="/panel/employees/edit/"+v._id) Editar
+                        | 
+                        a(href="/panel/employees/delete/"+v._id) Borrar
+                - });
+style.
+    h1 {display: inline-block;}

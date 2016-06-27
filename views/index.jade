@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+        div
+            input#busqueda(type="text", placeholder="Buscar empleado...")
+            button#buscar Buscar
+            .resultados
+            script.
+                var buscar = function(){
+                    if($('#busqueda').val().length <= 2){
+                        $('.resultados').empty();
+                        return false;
+                    }
+                    $.getJSON('/employee/search/'+$('#busqueda').val(), function(data){
+                        console.log(data);
+                        $('.resultados').empty();
+                        for(var i = 0; i < data.length; i++ ){
+                            $('.resultados').append("<div class=employee><p>"+data[i].nombre+" "+data[i].apellido+" "+data[i].email+"</p></div>")
+                        }
+                    });
+                }
+                $(document).ready(function(){
+                    // evento presionar boton buscar
+                    $('button#buscar').on('click', function(){
+                        buscar();
+                    });
+                    // evento presionar tecla
+                    $('#busqueda').on('keypress', function(){
+                        buscar();
+                    });
+                });
