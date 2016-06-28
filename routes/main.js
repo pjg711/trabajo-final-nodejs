@@ -57,11 +57,14 @@ app.post('/panel/employees/new', adminAuth, function(req, res) {
     req.checkBody('password', 'La contraseña es requerida').notEmpty();
     req.checkBody('password2', 'La confirmación de la contraseña es requerida').notEmpty();
     req.checkBody('password', 'Las contraseñas no coinciden').equals(req.body.password2);
-
-    var errors = req.validationErrors();
-    if(errors){
-        errors = errors.map(function(a) {return a.msg;});
-        res.render('new', { title: 'Nuevo empleado', errors: errors, params: req.body });
+    var errores = req.validationErrors();
+    if(errores){
+        errors = errores.map(function(a) {return a.msg;});
+        res.render('new', { 
+            title: 'Nuevo empleado', 
+            errores: errores, 
+            params: req.body 
+        });
         return;
     }
     var e = new Employees({
@@ -103,12 +106,12 @@ app.post('/panel/employees/edit/:id', adminAuth, function(req, res){
     req.checkBody('email', 'El email es erróneo').notEmpty().withMessage('El email es requerido').isEmail();
     req.checkBody('nombre', 'El nombre es requerido').notEmpty();
     req.checkBody('apellido', 'El apellido es requerido').notEmpty();
-    var errors = req.validationErrors();
-    if(errors) {
-        errors = errors.map(function(a) {return a.msg;});
+    var errores = req.validationErrors();
+    if(errores) {
+        errores = errores.map(function(a) {return a.msg;});
         res.render('edit', { 
             title: 'Editar empleado', 
-            errors: errors, 
+            errores: errores, 
             employee: req.body 
         });
         return;

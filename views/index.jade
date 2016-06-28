@@ -2,13 +2,14 @@ extends layout
 
 block content
     h1= title
-    p Welcome to #{title}
+    p Bienvenido a #{title}
         div
             input#busqueda(type="text", placeholder="Buscar empleado...")
             button#buscar Buscar
             .resultados
             script.
                 var buscar = function(){
+                    //console.log('largo texto->'+$('#busqueda').val().length);
                     if($('#busqueda').val().length === 0){
                         // oculto 
                         $('.resultados').contents().remove();
@@ -17,20 +18,46 @@ block content
                     $.getJSON('/employee/search/'+$('#busqueda').val(), function(data){
                         console.log(data);
                         $('.resultados').empty();
-                        for(var i = 0; i < data.length; i++ ){
-                            $('.resultados').append("<div class=empleado><p>"+data[i].nombre+" "+data[i].apellido+" "+data[i].email+"</p></div>")
+                        //$('.resultados').append("<br><br>");
+                        //$('.resultados').append("<table><tr>");
+                        var cc=0;
+                        var cadena="<br><br><table class='principal'><tr>";
+                        for(var i = 0; i < data.length; i++){
+                            cc++;
+                            cadena=cadena+"<td>";
+                            // $('.resultados').append("<td>");
+                            cadena=cadena+"<table class='ficha'><tr><td id='silueta' rowspan='2'><img src='/img/silueta2.png' width='130'></td><td id='nombre'><h2>"+data[i].nombre+" "+data[i].apellido+"</h2></td></tr><tr><td id='email'>"+data[i].email+"</td></tr></table>";
+                            //$('.resultados').append("<table><tr><td id='silueta' rowspan='2'><img src='/img/silueta2.png' width='130'></td><td id='nombre'><h2>"+data[i].nombre+" "+data[i].apellido+"</h2></td></tr><tr><td id='email'>"+data[i].email+"</td></tr></table>");
+                            if(cc==3){
+                                //console.log('pase por aca 2');
+                                //$('.resultados').append("</td></tr><tr><td colspan='3'>&nbsp;</td></tr><tr>");
+                                cadena=cadena+"</td></tr><tr><td colspan='3'>&nbsp;</td></tr><tr>";
+                                cc=0;
+                            }
                         }
+                        console.log('cadena->'+cadena);
+                        $('.resultados').append(cadena);
                     });
                 }
                 $(document).ready(function(){
                     // evento presionar boton buscar
                     $('button#buscar').on('click', function(){
+                        console.log('pase por click');
                         buscar();
                     });
                     // evento presionar tecla
-                    $('#busqueda').on('keypress', function(){
+                    //$('#busqueda').on('keypress', function(){
+                    //    console.log('pase por keypress');
+                    //    buscar();
+                    //});
+                    $('#busqueda').on('keyup', function(){
+                        console.log('pase por keyup');
                         buscar();
                     });
                 });
-            style.
-                .empleado {text-align: center; font-size: 18px; margin: 20px; border: 1px solid blue;}
+    style.
+        table.principal {width:100%; table-layout: fixed;}
+        table.ficha { width:350px; table-layout: fixed; border:1px black solid; background-color: gray; }
+        table.ficha td#silueta{width:40px; text-align:right;}
+        table.ficha td#nombre{vertical-align: bottom; text-align: right;}
+        table.ficha td#email{vertical-align: top; text-align: right;}

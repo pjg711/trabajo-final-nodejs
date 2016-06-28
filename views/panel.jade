@@ -1,33 +1,43 @@
 extends layout
 
 block content
-    h1  
-        table
-            tr
-                th(align="left" width="99%")=title
-                th(align="right")
-                    label MENU&nbsp;
-                        a(href='#')
-                            i(class="fa fa-bars" aria-hidden="true")
-    p
-        a(href="/panel/employees/new") Nuevo
-        table
-            tr
-                th Id
-                th Nombre
-                th Apellido
-                th E-Mail
-                th Options
-                - employees.forEach(function(v,i){
+    div.caja
+        h1= title
+        p
+            a(id='menu-nuevo', href='/panel/employees/new', title='Nuevo empleado')
+                i.fa.fa-user-plus
+                &nbsp;&nbsp;Nuevo empleado
+            table
                 tr
-                    td=i
-                    td=v.nombre
-                    td=v.apellido
-                    td=v.email
-                    td
-                        a(href="/panel/employees/edit/"+v._id) Editar
-                        | 
-                        a(href="/panel/employees/delete/"+v._id) Borrar
-                - });
-style.
-    h1 {display: inline-block;}
+                    th Id
+                    th Nombre
+                    th Apellido
+                    th E-Mail
+                    th Opciones
+                    - employees.forEach(function(v,i){
+                    tr(class=(i % 2 ? 'par' : 'impar'))
+                        td(id='iconos')=i
+                        td=v.nombre
+                        td=v.apellido
+                        td=v.email
+                        td(id='iconos')
+                            a(id='menu-nuevo',href="/panel/employees/edit/"+v._id, title='Editar') 
+                                i.fa.fa-pencil
+                            &nbsp;&nbsp; 
+                            a(id='menu-nuevo',href="/panel/employees/delete/"+v._id, title='Borrar')
+                                i.fa.fa-trash
+                    - });
+    style.
+        table{ width: 600px;border-collapse:collapse;background-color: #fff;}
+        table th {background-color: #C4C4C4;}
+        a#menu-nuevo{
+            text-decoration: none;
+            color: #4C8FBC;
+        }
+        a#menu-nuevo:link{
+            text-decoration: none;
+            color: blue;
+        }
+        #iconos{margin:0 auto;text-align:center;}
+        .par{background-color:#fff}
+        .impar{background-color:#E5E5E5}

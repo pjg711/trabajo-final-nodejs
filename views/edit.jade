@@ -1,36 +1,37 @@
 extends layout
 
 block content
-    h1= title
-    .error
-        - if (errors)
-            ul
-            - each a in errors
-                li=a
-    form(style={border:1px solid #cccccc;} action='',method='post')
-        table
-            tr
-                td 
-                    label(for='nombre') Nombre
-            tr
-                td 
-                    input(type='text', name='nombre', id='nombre', size=50, value=employee.nombre, placeholder='Ingrese aquí su nombre...')
-            tr
-                td 
-                    label(for='apellido') Apellido
-            tr
-                td
-                    input(type='text', name='apellido', id='apellido', size=50, value=employee.apellido, placeholder='Ingrese aquí su apellido...')
-            tr
-                td
-                    label(for='email') E-mail
-            tr
-                td
-                    input(type='text', name='email', id='email', size=50, value=employee.email, placeholder='Ingrese aquí su email...')
-            tr
-                td
-                    input(type='submit', value='Save')
-style.
-    form label { min-width: 80px; display: inline-block; }
-    form > div { padding: 5px; }
-    errores { color:red; }
+    div.caja
+        h1= title
+        .error
+            - if(errores)
+                ul
+                - each a in errores
+                    li=a
+        form(action='',method='post')
+            table
+                tr
+                    td 
+                        label(for='nombre') Nombre
+                tr
+                    td 
+                        input(type='text', name='nombre', id='nombre', size=50, value=employee.nombre, placeholder='Ingrese aquí su nombre...')
+                tr
+                    td 
+                        label(for='apellido') Apellido
+                tr
+                    td
+                        input(type='text', name='apellido', id='apellido', size=50, value=employee.apellido, placeholder='Ingrese aquí su apellido...')
+                tr
+                    td
+                        label(for='email') E-mail
+                tr
+                    td
+                        input(type='text', name='email', id='email', size=50, value=employee.email, placeholder='Ingrese aquí su email...')
+                tr
+                    td
+                        input(type='submit', value='Save')
+    style.
+        form label { min-width: 80px; display: inline-block; }
+        form > div { padding: 5px; }
+        error { color:red; }
