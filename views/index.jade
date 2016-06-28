@@ -9,15 +9,16 @@ block content
             .resultados
             script.
                 var buscar = function(){
-                    if($('#busqueda').val().length <= 2){
-                        $('.resultados').empty();
+                    if($('#busqueda').val().length === 0){
+                        // oculto 
+                        $('.resultados').contents().remove();
                         return false;
                     }
                     $.getJSON('/employee/search/'+$('#busqueda').val(), function(data){
                         console.log(data);
                         $('.resultados').empty();
                         for(var i = 0; i < data.length; i++ ){
-                            $('.resultados').append("<div class=employee><p>"+data[i].nombre+" "+data[i].apellido+" "+data[i].email+"</p></div>")
+                            $('.resultados').append("<div class=empleado><p>"+data[i].nombre+" "+data[i].apellido+" "+data[i].email+"</p></div>")
                         }
                     });
                 }
@@ -31,3 +32,5 @@ block content
                         buscar();
                     });
                 });
+            style.
+                .empleado {text-align: center; font-size: 18px; margin: 20px; border: 1px solid blue;}

@@ -1,0 +1,38 @@
+-if(user){
+.menu-nav
+    li(class=((path === '/' || path === '') ? 'active' : ''))
+        a(href='/') Inicio
+    li(class=(path === 'employees' ? 'active' : ''))
+        a(href='/panel/employees') Panel
+    li(class=(path === 'logout' ? 'active' : ''))
+        a(href='/logout') Cerrar sesión
+-}else{
+.menu-nav
+    li(class=(path === '/' ? 'active' : ''))
+        a(href='/') Inicio
+    li(class=(path === 'admin' ? 'active' : ''))
+        a(href='/admin') Administrador
+-}
+style.
+    .active{background-color:red;}
+    .menu-nav{
+        position: fixed;
+        display: block;      
+        list-style: none; //sin punto adelante
+        background-color:#9DCDE9;
+        padding: 10px 20px;
+        width:100%;
+        top:0;
+        left:0;
+    }
+    .menu-nav li{
+        float: left;
+        padding: 0 10px;
+    }
+    a:link{
+        color: red;
+        text-decoration: none;
+    }
+    a:hover{
+        color: hotpink;
+    }

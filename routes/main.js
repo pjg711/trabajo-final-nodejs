@@ -1,7 +1,7 @@
 var app = module.parent.exports.app;
 var passport = module.parent.exports.passport;
 var Employees = require('../models/employees.js');
-var Admins = require('../models/admins.js');
+var Adminsl = require('../models/admins.js');
 
 var adminAuth = function(req, res, next){
     //authorize role
@@ -13,22 +13,23 @@ var adminAuth = function(req, res, next){
     }
 }
 
+app.use(function(req, res, next){
+    res.locals.user = req.user;
+    res.locals.path = req.path.split("/")[1]
+    next();
+});
+
 app.get('/', function(req, res) {
     res.render('index', { title: 'Employee Wiki' });
 });
-/*
-app.get('/', function(req, res) {
-    res.redirect('/login');
-});
-*/
 
-app.get('/login', function(req, res){
+app.get('/admin', function(req, res){
     res.render('login', { title: 'Login'});
 });
 
-app.post('/login', passport.authenticate('AdminLogin', { 
+app.post('/admin', passport.authenticate('AdminLogin', { 
     successRedirect: '/panel/employees',
-    failureRedirect: '/login',
+    failureRedirect: '/admin',
     failureFlash: true })
 );
 
@@ -50,22 +51,22 @@ app.get('/panel/employees/new', adminAuth, function(req, res){
 // recibiendo datos de nuevo empleado
 app.post('/panel/employees/new', adminAuth, function(req, res) {
     //validando datos
-    req.checkBody('nombre', 'First name is required').notEmpty();
-    req.checkBody('apellido', 'Last name is required').notEmpty();
-    req.checkBody('email', 'Invalid email').notEmpty().withMessage('Email is required').isEmail();
-    req.checkBody('password', 'Password is required').notEmpty();
-    req.checkBody('password2', 'Confirm is required').notEmpty();
-    req.checkBody('password', 'Passwords do not match').equals(req.body.password2);
+    req.checkBody('nombre', 'El nombre es requerido').notEmpty();
+    req.checkBody('apellido', 'El apellido es requerido').notEmpty();
+    req.checkBody('email', 'El email es erróneo').notEmpty().withMessage('El email es requerido').isEmail();
+    req.checkBody('password', 'La contraseña es requerida').notEmpty();
+    req.checkBody('password2', 'La confirmación de la contraseña es requerida').notEmpty();
+    req.checkBody('password', 'Las contraseñas no coinciden').equals(req.body.password2);
 
     var errors = req.validationErrors();
     if(errors){
         errors = errors.map(function(a) {return a.msg;});
-        res.render('new', { title: 'New', errors: errors, params: req.body });
+        res.render('new', { title: 'Nuevo empleado', errors: errors, params: req.body });
         return;
     }
     var e = new Employees({
-        nombre: req.body.firstName,
-	apellido: req.body.lastName,
+        nombre: req.body.nombre,
+	apellido: req.body.apellido,
 	email: req.body.email,
 	password: req.body.password
     });
@@ -99,14 +100,17 @@ app.get('/panel/employees/edit/:id', adminAuth, function(req, res){
 });
 // recibiendo datos de la edicion del empleado
 app.post('/panel/employees/edit/:id', adminAuth, function(req, res){
-    req.checkBody('email', 'Invalid email').notEmpty().withMessage('Email is required').isEmail();
-    req.checkBody('nombre', 'First name is required').notEmpty();
-    req.checkBody('apellido', 'Last name is required').notEmpty();
-
+    req.checkBody('email', 'El email es erróneo').notEmpty().withMessage('El email es requerido').isEmail();
+    req.checkBody('nombre', 'El nombre es requerido').notEmpty();
+    req.checkBody('apellido', 'El apellido es requerido').notEmpty();
     var errors = req.validationErrors();
     if(errors) {
         errors = errors.map(function(a) {return a.msg;});
-        res.render('edit', { title: 'Editar empleado', errors: errors, employee: req.body });
+        res.render('edit', { 
+            title: 'Editar empleado', 
+            errors: errors, 
+            employee: req.body 
+        });
         return;
     }
     Employees.findOne({ _id: req.params.id }, function(err, doc){
@@ -126,13 +130,11 @@ app.post('/panel/employees/edit/:id', adminAuth, function(req, res){
         }
     });
 });
-
-
 // busqueda
 app.get('/employee/search/:keyword', function(req, res){
     var keyword = req.params.keyword;
     console.log(keyword);
-    Employees.find({ $or:[{nombre:{"$regex": new RegExp(keyword, "i")} },{apellido:{"$regex": new RegExp(keyword, "i")}}]}, function(err, docs){
+    Employees.find({$or:[{nombre:{"$regex": new RegExp(keyword, "i")}},{apellido:{"$regex": new RegExp(keyword, "i")}}]}, function(err, docs){
         res.send(docs);
     });
 });
