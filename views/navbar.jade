@@ -7,6 +7,8 @@
         a(id='menu-nav', href='/panel/employees') Panel
     li(class=(path === 'logout' ? 'active' : ''))
         a(id='menu-nav', href='/logout') Cerrar sesión
+    div#login 
+        label Hola Admin #{user.email}
 -}else{
 .menu-nav
     li(class=((path === '/' || path === '') ? 'active' : ''))
@@ -22,7 +24,7 @@ style.
         list-style: none;
         background-color:#000;
         padding: 10px 20px;
-        width:100%;
+        width:99%;
         top:0;
         left:0;
     }
@@ -42,3 +44,4 @@ style.
         text-decoration: none;
         color: #fff;
     }
+    #login{color: #fff; text-align: right;}

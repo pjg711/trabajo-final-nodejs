@@ -3,11 +3,12 @@ extends layout
 block content
     div.caja
         h1= title
-        .error
-            - if(errores)
+        - if(errores)
+            div.errores
                 ul
                 - each a in errores
                     li=a
+        br
         form(action='',method='post')
             table
                 tr
@@ -32,6 +33,4 @@ block content
                     td
                         input(type='submit', value='Save')
     style.
-        form label { min-width: 80px; display: inline-block; }
-        form > div { padding: 5px; }
-        error { color:red; }
+        div.errores { border:1px red solid; color:red; padding: 10px 10px 10px 10px }

@@ -59,7 +59,7 @@ app.post('/panel/employees/new', adminAuth, function(req, res) {
     req.checkBody('password', 'Las contraseñas no coinciden').equals(req.body.password2);
     var errores = req.validationErrors();
     if(errores){
-        errors = errores.map(function(a) {return a.msg;});
+        errores = errores.map(function(a) {return a.msg;});
         res.render('new', { 
             title: 'Nuevo empleado', 
             errores: errores, 
@@ -93,7 +93,7 @@ app.get('/panel/employees/delete/:id', adminAuth, function(req, res){
 });
 // para editar empleado
 app.get('/panel/employees/edit/:id', adminAuth, function(req, res){
-    Employees.findOne({ _id: req.params.id }, { nombre:"", apellido:"", email:"", password:"", password2:"" }, function(err, doc){
+    Employees.findOne({ _id: req.params.id }, function(err, doc){
         if(!err){
             res.render('edit', { title: 'Editar empleado', employee: doc});
         } else {
