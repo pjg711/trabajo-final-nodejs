@@ -35,7 +35,8 @@
     "zombie": "^4.2.1"
   },
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "mocha --watch --reporter spec test"
   },
   "author": "Pablo Garcia",
   "license": "ISC"
