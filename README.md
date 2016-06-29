@@ -25,3 +25,18 @@ Login
 -----
 
 ![Alt text](readme/login.png "login")
+
+Inicio
+------
+
+![Alt text](readme/inicio.png "Pantalla de inicio")
+
+Presentación de la busqueda de empleados
+----------------------------------------
+
+![Alt text](readme/busqueda.png "Presentación de fichas en la busqueda de empleados")
+
+Panel
+-----
+
+![Alt text](readme/panel.png "Listado de empleados")
