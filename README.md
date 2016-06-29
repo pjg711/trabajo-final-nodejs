@@ -34,7 +34,7 @@ Inicio
 Presentación de la busqueda de empleados
 ----------------------------------------
 
-![Alt text](readme/busqueda.png "Presentación de fichas en la busqueda de empleados")
+![Alt text](readme/busqueda.png "Presentacion de fichas en la busqueda de empleados")
 
 Panel
 -----
