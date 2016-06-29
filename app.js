@@ -16,8 +16,8 @@ var fixtures = require('mongoose-fixtures');
 
 mongoose.connect('mongodb://127.0.0.1/EmployeeWiki');
 
-//fixtures.load('./fixtures/admins.js');
-//fixtures.load('./fixtures/employees.js');
+fixtures.load('./fixtures/admins.js');
+fixtures.load('./fixtures/employees.js');
 
 var app = exports.app = express();
 

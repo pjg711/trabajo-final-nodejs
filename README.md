@@ -20,3 +20,8 @@ npm start
 # abrir en un navegador
 http://localhost:3200
 ```
+
+Login
+-----
+
+![Alt text](readme/login.png "login")
