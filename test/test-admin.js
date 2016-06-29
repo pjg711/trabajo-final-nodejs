@@ -3,7 +3,7 @@ var assert = require('assert');
 
 Browser.localhost('127.0.0.1',3200);
 var browser = new Browser();
-describe('Visitando admin', function(){
+describe('Admin', function(){
     before(function(done){
         browser.visit('/admin', done);
     });

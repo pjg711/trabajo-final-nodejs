@@ -2,7 +2,7 @@ var Browser = require('zombie');
 var assert = require('assert');
 
 Browser.localhost('127.0.0.1', 3200);
-describe('Headless Testing', function(){
+describe('Prueba Login Admin y agregar nuevo empleado', function(){
     describe('Empleados', function(){
         var browser = new Browser();
         before(function(done){
@@ -15,7 +15,7 @@ describe('Headless Testing', function(){
             it('logeo', function() {
                 browser.assert.success();
             });            
-            it('Crear nuevo empleado', function(done){
+            it('crear nuevo empleado', function(done){
                 browser.visit('/panel/employees/new', function(){
                     browser.fill('nombre','Pablo')
                         .fill('apellido', 'Garcia')

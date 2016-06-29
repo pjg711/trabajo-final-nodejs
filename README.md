@@ -21,6 +21,30 @@ npm start
 http://localhost:3200
 ```
 
+Testing
+-------
+```
+npm test
+
+  Admin
+    Logeo de admin
+      ✓ logeo
+      ✓ listado de empleados
+
+  Empleados
+    ✓ Nuevo Empleado (39ms)
+    ✓ Borrar empleado
+
+  Prueba Login Admin y agregar nuevo empleado
+    Empleados
+      Logeo como admin
+        ✓ logeo
+        ✓ crear nuevo empleado (671ms)
+
+
+  6 passing (3s)
+```
+
 Login
 -----
 

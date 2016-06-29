@@ -1,19 +1,21 @@
 var Employee = require('../models/employees.js');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1/EmployeeWiki');
-
-describe('Employees', function() {
-        it('new employee',function () {
-                var p = new Employee({ nombre: "Cristian", apellido: "Cortez" });
-                p.save(function(err, doc){
-                        console.log(err, doc);
-                        done();
-                });
+describe('Empleados', function() {
+    before(function(done){
+        mongoose.connect('mongodb://127.0.0.1/EmployeeWiki', done);
+    });
+    it('Nuevo Empleado',function(done) {
+        var p = new Employee({ nombre: "Pablo", apellido: "Garcia" });
+        p.save(function(err, doc){
+            done();
         });
-        it('post form',function () {
-
-        });
+    });
+    it('Borrar empleado',function(done) {
+        var p = new Employee({ nombre: "Pablo", apellido: "Garcia" });
+        Employee.remove({ _id: p.id });
+        done();
+    });
 });
 
 
